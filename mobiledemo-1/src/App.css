@@ -82,7 +82,7 @@ th,
 td {
   padding: 15px;
   background-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: black;
 }
 th {
   text-align: left;
@@ -108,5 +108,5 @@ tbody td:hover:before {
 }
 
 a {
-  color: white
+  color: black
 }

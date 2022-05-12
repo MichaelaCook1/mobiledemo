@@ -73,10 +73,6 @@ class App extends React.Component {
         <p>
           <input type = "submit" value = "Submit" onSubmit={hSubmit}/>
         </p>
-        <p>
-        <label>Passenger email for receipt:</label>
-        <input type = "text"/>
-        </p>
         <div className = "App-section-title"> Scan Seizure Code </div>
         <Html5QrcodePlugin 
             fps={10}
@@ -84,8 +80,13 @@ class App extends React.Component {
             disableFlip={false}
             qrCodeSuccessCallback={this.onNewScanResult}/>
           <ResultContainerPlugin results={this.state.decodedResults} />
+          <p>
+        <label>Passenger email for receipt:</label>
+        <input type = "text"/>
+        </p>
           </section>
       </div>
+      
     );
   }
 

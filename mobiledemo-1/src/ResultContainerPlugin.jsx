@@ -44,7 +44,7 @@ class ResultContainerPlugin extends React.Component {
     render() { 
         let results = filterResults(this.props.results);
         return (<div className='Result-container'>
-                <div className='Result-header'>Scanned results ({results.length})</div>
+                <div className='Result-header'>Scanned results</div>
                 <div className='Result-section'>
                     <ResultContainerTable data={this.props.results} />
                 </div>
