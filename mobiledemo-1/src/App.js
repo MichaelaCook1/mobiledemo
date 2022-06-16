@@ -2,7 +2,6 @@ import './App.css';
 
 import React from 'react';
 import Scan from "./Scan";
-import { useState } from 'react';
 import { ActionsContext } from './context';
 import Html5QrcodePlugin from './Html5QrcodePlugin.jsx'
 import ResultContainerPlugin from './ResultContainerPlugin.jsx'
@@ -23,27 +22,25 @@ const hSubmit = function(event){
   
   }
 
-  const [actions, setActions] = useState(null);
-  const {scan} = actions || {};
-
-  const actionValue = {actions, setActions};
-
   const onHandleAction = (actions) =>{
-    setActions({...actions})
-  }
+        setActions({...actions})
+      }
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      decodedResults: []
+      decodedResults: [],
+      setActions: Scan
     }
-
     // This binding is necessary to make `this` work in the callback.
     this.onNewScanResult = this.onNewScanResult.bind(this);
   }
 
   render() {
+
+
     return (
       <div>
         <section className = "App-section">
@@ -81,7 +78,8 @@ class App extends React.Component {
         <div classname="App-container">
           <button onClick={()=>onHandleAction({scan: 'scanning', write: null})} className="btn">Scan</button>
         </div>
-        <ActionsContext.Provider value={actionValue}>
+        {/* this sets the action value to scan */}
+        <ActionsContext.Provider value={this.actionValue}>
           {scan && <Scan/>}
         </ActionsContext.Provider>
         
