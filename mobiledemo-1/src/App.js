@@ -37,7 +37,7 @@ class App extends React.Component {
         <section className = "App-section">
         <form class ="form" id="seizureForm">
           {/* label for the page*/}
-      <p><label for="file"> Input Seizure Details </label></p>
+      <h1 className="gov-heading">Input Seizure Details </h1>
       {/* <input accept='image/*' id="icon-button-file" type="file"
         capture="environment" /> */} 
         {/* This is the original method commented out */}
@@ -46,23 +46,23 @@ class App extends React.Component {
         <br></br>
         <br></br>
         <form onSubmit={this.handleSubmit}>
-          <label for="seizuretype">
+          <label for="seizuretype" class= "field-label">
             Select Seizure Category: 
         <select>
-          <option value='tobacco'>Tobacco</option>
-          <option value='drugs'>Drugs</option>
-          <option value='firearms'>Firearms</option>
-          <option value='alcohol'>Alcohol</option>
+          <option value='tobacco' class="choice">Tobacco</option>
+          <option value='drugs'class="choice">Drugs</option>
+          <option value='firearms'class="choice">Firearms</option>
+          <option value='alcohol'class="choice">Alcohol</option>
         </select>
         </label>
         </form>
         </p>
         <p>
-        <label>Seizure Number: </label>
+        <label class="field-label">Seizure Number: </label>
         <input type = "text"/>
         </p>
         <p>
-        <label>Seizure Details:  </label>
+        <label class="field-label">Seizure Details:  </label>
         <textarea name="seizure-content" rows="2" cols="20"></textarea>
         
         <p><img id="output" width="200"/></p>
@@ -71,7 +71,7 @@ class App extends React.Component {
         {/* upload box for the files, presented the option of using the main camera or the file explorer */}
         <input type="file" accept='image/*' name='image' id='file' onChange={loadFile} />
         <p>
-          <input type = "submit" value = "Submit" onSubmit={hSubmit}/>
+          <input type = "submit" class=" button" value = "Submit" onSubmit={hSubmit}/>
         </p>
         <div className = "App-section-title"> Scan Seizure Code </div>
         <Html5QrcodePlugin 
@@ -81,7 +81,7 @@ class App extends React.Component {
             qrCodeSuccessCallback={this.onNewScanResult}/>
           <ResultContainerPlugin results={this.state.decodedResults} />
           <p>
-        <label>Passenger email for receipt:</label>
+        <label class="field-label">Passenger email for receipt:</label>
         <input type = "text"/>
         </p>
           </section>
