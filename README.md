@@ -11,5 +11,5 @@ npm -i react-camera
 
 ###### qr scanner
 ```
-npm -i html5-qrcode-react
+npm -i html5-qrcode
 ```
