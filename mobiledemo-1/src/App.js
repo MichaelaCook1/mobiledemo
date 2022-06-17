@@ -1,7 +1,6 @@
 import './App.css';
-
 import React from 'react';
-import Scan from "./Scan";
+import Scan from './Scan.jsx';
 import { ActionsContext } from './context';
 import Html5QrcodePlugin from './Html5QrcodePlugin.jsx'
 import ResultContainerPlugin from './ResultContainerPlugin.jsx'
@@ -22,9 +21,6 @@ const hSubmit = function(event){
   
   }
 
-  const onHandleAction = (actions) =>{
-        setActions({...actions})
-      }
 
 
 class App extends React.Component {
@@ -32,15 +28,15 @@ class App extends React.Component {
     super(props);
     this.state = {
       decodedResults: [],
-      setActions: Scan
     }
     // This binding is necessary to make `this` work in the callback.
     this.onNewScanResult = this.onNewScanResult.bind(this);
   }
 
   render() {
-
-
+    const onHandleAction = (actions) =>{
+      this.setActions(...this.actions)
+    }
     return (
       <div>
         <section className = "App-section">
@@ -75,12 +71,12 @@ class App extends React.Component {
         <textarea name="seizure-content" rows="2" cols="20"></textarea>
 
         <h1>NFC Scan</h1>
-        <div classname="App-container">
-          <button onClick={()=>onHandleAction({scan: 'scanning', write: null})} className="btn">Scan</button>
+        <div classname="NFC-container">
+          <button onClick={()=>onHandleAction({scan: 'scanning', write: null})} className="btn-nfc">Scan</button>
         </div>
         {/* this sets the action value to scan */}
         <ActionsContext.Provider value={this.actionValue}>
-          {scan && <Scan/>}
+         {<Scan/>}
         </ActionsContext.Provider>
         
         <p><img id="output" width="200"/></p>

@@ -1,4 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import Scanner from "./Scanner";
 import {ActionsContext} from "./context";
 
 
@@ -6,23 +7,25 @@ class Scan extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            setActions: null,
-            setMessage: null,
-            setSerialNumber: null
+            message: null,
+            serialNumber: null,
+            setSerialNumber: null,
+            setMessage: null
           }
+        this.context = {
+            actions: null,
+            setActions: null
+        }
 
-          const [message, setMessage] = useState('');
-          const [serialNumber, setSerialNumber] = useState('');
-          const { actions, setActions} = useContext(ActionsContext);
 
           function onReading({message, serialNumber}) {
-              setSerialNumber(serialNumber);
+              this.setSerialNumber(serialNumber);
               for (const record of message.records) {
                   switch (record.recordType) {
                       case "text":
                           const textDecoder = new TextDecoder(record.encoding);
                           console.log("Message", textDecoder.decode(record.data));
-                          setMessage(textDecoder.decode(record.data));
+                          this.setMessage(textDecoder.decode(record.data));
                           break;
                      case "url":
                          break;
@@ -32,7 +35,8 @@ class Scan extends React.Component {
 
           }
 
-          function Scan(props) {
+          this.componentDidMount(
+          async function Scan() {
               if ('NDEFReader' in window) {
                   try {
                       const ndef = new window.NDEFReader();
@@ -43,10 +47,10 @@ class Scan extends React.Component {
                           console.log("Cannot read data from the NFC tag. Try another one?");
                       };
 
-                      ndef.onreading = event => {
+                      ndef.onReading = event => {
                           console.log("NDEF message read.");
                           onReading(event);
-                          setActions({
+                          this.setActions({
                               scan: 'scanned',
                               write: null
                           }); 
@@ -55,8 +59,22 @@ class Scan extends React.Component {
                       console.log(`Error! Scan failed start: ${error}`);
                   }
               }
+              useEffect(() => {
+                Scan();
+            }, [Scan]);
 
-        }
+        })
+this.render(
+    
+            <>
+            {this.actions.scan === 'scanned' ?  
+            <div>
+                <p>Serial Number: {this.serialNumber}</p>
+                <p>Message: {this.message}</p>
+            </div>
+            : <Scanner status={this.actions.scan}></Scanner> }
+        </>
+);
     }
 
 
