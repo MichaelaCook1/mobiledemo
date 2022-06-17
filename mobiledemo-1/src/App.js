@@ -3,7 +3,8 @@ import './App.css';
 import React from 'react';
 import Html5QrcodePlugin from './Html5QrcodePlugin.jsx'
 import ResultContainerPlugin from './ResultContainerPlugin.jsx'
-
+import Scan from './Scan.jsx';
+import { ActionsContext } from './context';
 
 var loadFile = function(event){
   var image = document.getElementById('output');
@@ -32,6 +33,9 @@ class App extends React.Component {
   }
 
   render() {
+    const onHandleAction = (actions) =>{
+      this.setActions(...this.actions)
+    }
     return (
       <div>
         <section className = "App-section">
@@ -64,7 +68,14 @@ class App extends React.Component {
         <p>
         <label class="field-label">Seizure Details:  </label>
         <textarea name="seizure-content" rows="2" cols="20"></textarea>
-        
+        <h1>NFC Scan</h1>
+        <div classname="NFC-container">
+          <button onClick={()=>onHandleAction({scan: 'scanning', write: null})} className="btn-nfc">Scan</button>
+        </div>
+        {/* this sets the action value to scan */}
+        <ActionsContext.Provider value={this.actionValue}>
+         {<Scan/>}
+        </ActionsContext.Provider>
         <p><img id="output" width="200"/></p>
         </p>
         </form>
