@@ -3,6 +3,10 @@ import './App.css';
 import React from 'react';
 import Html5QrcodePlugin from './Html5QrcodePlugin.jsx'
 import ResultContainerPlugin from './ResultContainerPlugin.jsx'
+import OCR from './OCR.jsx';
+import Webcam from "react-webcam";
+import WebcamCapture from './OCR.jsx';
+import FileRecognize from './fileRecognize';
 
 
 var loadFile = function(event){
@@ -84,6 +88,8 @@ class App extends React.Component {
         <label class="field-label">Passenger email for receipt:</label>
         <input type = "text"/>
         </p>
+        <div classname= "App-section-title"> Scan passport </div>
+        <WebcamCapture/>
           </section>
       </div>
       
